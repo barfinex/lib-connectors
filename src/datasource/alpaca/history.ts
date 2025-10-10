@@ -47,7 +47,7 @@ let client: AlpacaClient | null = null;
 
 function getClient() {
     if (!client) {
-        client = new AlpacaClient({ credentials: { key, secret } });
+        client = new AlpacaClient({ credentials: { key: key!, secret: secret! } });
     }
     return client;
 }

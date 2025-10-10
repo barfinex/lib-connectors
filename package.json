@@ -2,7 +2,7 @@
   "name": "@barfinex/connectors",
   "version": "0.0.0-development",
   "private": false,
-  "description": "Shared Connectors for Barfinex ecosystem",
+  "description": "Connectors module for the Barfinex ecosystem. Provides integration with external market data providers (Binance, Alpaca, etc.), including REST/HTTP requests, candle transformation, and real-time data access via NestJS services.",
   "author": "Barfinex",
   "license": "MIT",
   "homepage": "https://github.com/barfinex/lib-connectors#readme",
@@ -23,6 +23,34 @@
     "clean": "rimraf dist",
     "release": "semantic-release"
   },
+  "keywords": [
+    "barfinex",
+    "connectors",
+    "nestjs",
+    "nestjs-module",
+    "typescript",
+    "trading",
+    "market-data",
+    "binance",
+    "alpaca",
+    "candle",
+    "order",
+    "crypto",
+    "stocks",
+    "integration",
+    "http",
+    "rxjs",
+    "websocket",
+    "exchange"
+  ],
+  "peerDependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/axios": "^3.0.0",
+    "rxjs": "^7.8.1",
+    "axios": "^1.7.0",
+    "@barfinex/utils": "^0.0.0",
+    "@barfinex/types": "^0.0.0"
+  },
   "devDependencies": {
     "typescript": "^5.6.0",
     "rimraf": "^5.0.0",
@@ -31,7 +59,14 @@
     "@semantic-release/git": "^10.0.0",
     "@semantic-release/github": "^10.0.0",
     "@semantic-release/commit-analyzer": "^13.0.0",
-    "@semantic-release/release-notes-generator": "^14.0.0"
+    "@semantic-release/release-notes-generator": "^14.0.0",
+    "@types/node": "^20.11.30",
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/axios": "^3.0.0",
+    "rxjs": "^7.8.1",
+    "axios": "^1.7.0",
+    "@barfinex/utils": "*",
+    "@barfinex/types": "*"
   },
   "publishConfig": {
     "access": "public"
