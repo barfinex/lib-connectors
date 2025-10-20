@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.convertTimeFrame = convertTimeFrame;
 exports.transformAlpacaCandle = transformAlpacaCandle;
 exports.requestAlpaca = requestAlpaca;
-const utils_1 = require("@barfinex/utils");
+const utils_1 = require("../../../../utils/dist/index.js");
 const types_1 = require("@barfinex/types");
 const alpaca_1 = require("@master-chief/alpaca");
 const common_1 = require("@nestjs/common");
@@ -45,7 +45,7 @@ async function requestAlpaca(from, to, ticker, interval) {
     if (utils_1.date.isWeekend(from)) {
         return [];
     }
-    const fifteenMin = 900100;
+    const fifteenMin = 900_100;
     const now = Date.now();
     const separateRequest = now - fifteenMin < to;
     let premiumBars = [];
@@ -55,7 +55,7 @@ async function requestAlpaca(from, to, ticker, interval) {
         try {
             const response = await getClient().getBars({
                 symbol: ticker,
-                start: new Date(toSafe - fifteenMin + 60000),
+                start: new Date(toSafe - fifteenMin + 60_000),
                 end: new Date(toSafe + fifteenMin),
                 timeframe: convertTimeFrame(interval),
             });

@@ -36,7 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createRequestBinance = createRequestBinance;
 const ccxt = __importStar(require("ccxt"));
 const types_1 = require("@barfinex/types");
-const utils_1 = require("@barfinex/utils");
+const utils_1 = require("../../../../utils/dist/index.js");
 const common_1 = require("@nestjs/common");
 function toCcxtTimeframe(tf) {
     switch (tf) {
@@ -55,7 +55,7 @@ function createRequestBinance(marketType) {
     const exchange = marketType === types_1.MarketType.futures
         ? new ccxt.binanceusdm({ enableRateLimit: true })
         : new ccxt.binance({ enableRateLimit: true });
-    exchange.timeout = 15000;
+    exchange.timeout = 15_000;
     const maxLimit = marketType === types_1.MarketType.futures ? 1500 : 1000;
     const marketsReady = exchange.loadMarkets();
     const symbolCache = new Map();
