@@ -1,20 +1,19 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
     "declaration": true,
     "emitDeclarationOnly": false,
-    "rootDir": "./src", // 📂 исходники только этой либы
-    "outDir": "../../dist/libs/connectors", // 📦 единый dist для монорепы
-    "declarationDir": "../../dist/libs/connectors", // 📄 декларации рядом с js
-    "tsBuildInfoFile": "../../dist/libs/connectors.tsbuildinfo", // ✅ уникальный build cache
-    "composite": true, // участвует в project references
+    "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/connectors.tsbuildinfo",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "../../", // общий корень алиасов
+    "composite": true,
+    "baseUrl": "../../",
     "paths": {
       "@barfinex/types": [
         "libs/types/src"
@@ -36,12 +35,4 @@
     "**/*.spec.ts",
     "**/*.test.ts"
   ],
-  "references": [
-    {
-      "path": "../types"
-    },
-    {
-      "path": "../utils"
-    }
-  ]
 }
