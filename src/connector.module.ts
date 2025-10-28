@@ -7,4 +7,5 @@ import { HttpModule } from '@nestjs/axios';
   providers: [ConnectorService],
   exports: [ConnectorService],
 })
+
 export class ConnectorModule { }

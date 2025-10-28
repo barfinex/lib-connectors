@@ -8,20 +8,29 @@
   "homepage": "https://github.com/barfinex/lib-connectors#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/barfinex/lib-connectors.git"
+    "url": "git+https://github.com/barfinex/lib-connectors.git"
   },
   "bugs": {
     "url": "https://github.com/barfinex/lib-connectors/issues"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "dist",
     "README.md"
   ],
+  "sideEffects": false,
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
     "build": "tsc -p tsconfig.app.json",
+    "build:npm": "tsc -p tsconfig.build.json",
     "rebuild": "npm run clean && npm run build",
     "release": "semantic-release"
   },
@@ -41,8 +50,8 @@
     "exchange"
   ],
   "dependencies": {
-    "@barfinex/types": "1.0.14",
-    "@barfinex/utils": "1.0.1"
+    "@barfinex/types": "latest",
+    "@barfinex/utils": "latest"
   },
   "peerDependencies": {
     "@nestjs/common": "^10.0.0",
