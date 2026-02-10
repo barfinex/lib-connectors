@@ -65,7 +65,7 @@ export class MarketWatcher implements OnModuleInit {
 
   async onModuleInit() {
     // Example: subscribe to live candles for BTCUSDT
-    await this.connectorService.subscribe('binance', 'BTCUSDT', '1m', (candle) => {
+    await this.connectorService.subscribe('binance', 'BTCUSDT', 'min1', (candle) => {
       console.log('New candle:', candle);
     });
   }
@@ -123,6 +123,6 @@ Join our Telegram community: [t.me/barfinex](https://t.me/barfinex)
 This repository is licensed under the [Apache License 2.0](LICENSE) with additional restrictions.
 
 ### Key Terms:
-1. **Attribution**: Credit to Barfin Network Limited, with a link to [https://barfin.network/](https://barfin.network/).  
+1. **Attribution**: Credit to Barfin Network Limited, with a link to [https://barfinex.com/](https://barfinex.com/).  
 2. **Non-Commercial Use**: Commercial use is prohibited without explicit permission.  
 3. **Display Requirements**: Must show "Barfin Network Limited", the logo, and a link to [https://barfinex.com/](https://barfinex.com/).  

@@ -1,5 +1,5 @@
 import * as ccxt from 'ccxt';
-import { TimeFrame, CandleRaw, MarketType } from '@barfinex/types';
+import { TimeFrame, Candle, MarketType } from '@barfinex/types';
 import { date } from '@barfinex/utils';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 
@@ -92,7 +92,7 @@ export function createRequestBinance(marketType: MarketType) {
     return unified;
   }
 
-  const inflight = new Map<string, Promise<CandleRaw[]>>();
+  const inflight = new Map<string, Promise<Candle[]>>();
 
   type RequestOpts = { maxBars?: number };
 
@@ -102,7 +102,7 @@ export function createRequestBinance(marketType: MarketType) {
     symbolName: string,
     interval: TimeFrame,
     opts?: RequestOpts
-  ): Promise<CandleRaw[]> {
+  ): Promise<Candle[]> {
     const tfStr = toCcxtTimeframe(interval);
     const frameMs = date.intervalToMs(interval);
 
@@ -123,7 +123,7 @@ export function createRequestBinance(marketType: MarketType) {
 
     const p = (async () => {
       const unifiedSymbol = await getUnifiedSymbol(symbolName);
-      const out: CandleRaw[] = [];
+      const out: Candle[] = [];
       let since = useFrom;
       let lastTs = -1;
 
@@ -139,11 +139,11 @@ export function createRequestBinance(marketType: MarketType) {
           if (ts <= lastTs) continue;
           out.push({
             time: ts,
-            o: Number(o),
-            h: Number(h),
-            l: Number(l),
-            c: Number(c),
-            v: Number(v),
+            open: Number(o),
+            high: Number(h),
+            low: Number(l),
+            close: Number(c),
+            volume: Number(v),
             symbol: { name: symbolName.toUpperCase() } as any, // Symbol совместим по полю name
           });
           lastTs = ts;

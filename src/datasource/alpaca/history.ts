@@ -1,6 +1,6 @@
 // providers/alpaca/request.ts
 import { date } from '@barfinex/utils';
-import { CandleRaw, TimeFrame } from '@barfinex/types';
+import { Candle, TimeFrame } from '@barfinex/types';
 import { AlpacaClient, Bar } from '@master-chief/alpaca';
 import { RawBar } from '@master-chief/alpaca/@types/entities';
 import {
@@ -26,16 +26,16 @@ export function convertTimeFrame(timeframe: TimeFrame) {
 export function transformAlpacaCandle(
     bar: Bar | RawBar,
     symbol: { name: string },
-): CandleRaw {
+): Candle {
     const rawBar = 'raw' in bar ? bar.raw() : bar;
     const time = Date.parse(rawBar.t);
 
     return {
-        o: rawBar.o,
-        h: rawBar.h,
-        l: rawBar.l,
-        c: rawBar.c,
-        v: rawBar.v,
+        open: rawBar.o,
+        high: rawBar.h,
+        low: rawBar.l,
+        close: rawBar.c,
+        volume: rawBar.v,
         time,
         symbol,
     };
@@ -57,7 +57,7 @@ export async function requestAlpaca(
     to: number,
     ticker: string,
     interval: TimeFrame,
-): Promise<CandleRaw[]> {
+): Promise<Candle[]> {
     // Пропускаем запросы за выходные
     if (date.isWeekend(from)) {
         return [];
