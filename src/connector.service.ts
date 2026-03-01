@@ -270,8 +270,11 @@ export class ConnectorService {
     async registerInspector(options: { providerRestApiUrl: string; inspector: Inspector }): Promise<Inspector> {
         const { providerRestApiUrl, inspector } = options;
         const url = `${providerRestApiUrl}/inspectors`;
-        const params = { inspector };
-        this.checkApiUrlWithСonnectorType(url);
+        const params = {
+            sysname: inspector?.key,
+            options: inspector,
+        };
+        this.checkApiUrl(url);
         this.logStart(url, params);
         const request$ = this.request('post', url, params, {}, this.registerInspector.name);
         return await lastValueFrom(request$) as Inspector;

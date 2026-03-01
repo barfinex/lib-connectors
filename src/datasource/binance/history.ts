@@ -4,7 +4,7 @@ import { date } from '@barfinex/utils';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 // наши интервалы → ccxt
-type CcxtTF = '1m' | '5m' | '15m' | '30m' | '1h' | '4h' | '1d';
+type CcxtTF = '1m' | '5m' | '15m' | '30m' | '1h' | '2h' | '4h' | '1d';
 
 type ExchangeLike = {
   id: string;
@@ -27,6 +27,7 @@ function toCcxtTimeframe(tf: TimeFrame): CcxtTF {
     case TimeFrame.min15: return '15m';
     case TimeFrame.min30: return '30m';
     case TimeFrame.h1: return '1h';
+    case TimeFrame.h2: return '2h';
     case TimeFrame.h4: return '4h';
     case TimeFrame.day: return '1d';
     default:

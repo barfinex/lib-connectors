@@ -96,7 +96,14 @@
       "@barfinex/connectors": ["libs/connectors/src"],
       "@barfinex/orders": ["libs/orders/src"],
       "@barfinex/provider-ws-bridge": ["libs/provider-ws-bridge/src"],
+      "@barfinex/provider-mcp": ["libs/provider-mcp/src"],
+      "@barfinex/indicators": ["libs/indicators/src"],
+      "@barfinex/plugins/trade-journal/src": ["libs/plugins/trade-journal/src"],
+      "@barfinex/plugins/trade-journal/src/*": ["libs/plugins/trade-journal/src/*"],
+      "@barfinex/plugins/orderflow-trade-analytics/src": ["libs/plugins/orderflow-trade-analytics/src"],
+      "@barfinex/plugins/orderflow-trade-analytics/src/*": ["libs/plugins/orderflow-trade-analytics/src/*"],
       "@barfinex/telegram": ["libs/telegram/src"],
+      "@barfinex/alerts": ["libs/alerts/src"],
       "@barfinex/detector": ["libs/detector/src"]
     }
   },
