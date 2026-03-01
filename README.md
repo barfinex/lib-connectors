@@ -1,27 +1,21 @@
 # @barfinex/connectors
 
-**`@barfinex/connectors`** is the **integration layer** of the [Barfinex](https://barfinex.com) ecosystem — an open-source platform for algorithmic trading, quantitative research, and digital asset infrastructure.
+**Exchange and broker integration layer** for the [Barfinex](https://barfinex.com) ecosystem — connect to Binance, Alpaca, and other venues for market data and order execution through a single abstraction.
 
-This package provides **data and trading connectors** to external exchanges and brokers (e.g., Binance, Bybit, etc.), ensuring **real-time market access** and **execution capabilities**.  
-
-By centralizing connector logic, it guarantees:
-
-- 🔌 **Seamless integration** — unified abstraction over multiple exchanges.  
-- ⏱ **Low-latency market data** — historical and live data feeds with caching.  
-- 📈 **Trading operations** — order placement, updates, and cancellations.  
-- 🛡 **Reliability** — reconnection strategies and error-handling built in.  
-- 🌍 **Extensibility** — easily add support for new providers without breaking existing services.  
+This library gives your Barfinex services **real-time and historical data**, **order placement**, and **subscriptions** with a unified API. By centralizing connector logic, you get consistent behaviour across Provider, Detector, and any app that talks to exchanges.
 
 ---
 
-It helps to:  
-- abstract differences between exchange APIs;  
-- provide a uniform interface for historical and live data;  
-- ensure type-safety by aligning with `@barfinex/types`.  
+## What it does
+
+- **Unified API** — one interface for candles, trades, orderbooks, and orders across supported exchanges.
+- **Live and historical data** — stream subscriptions plus helpers for historical candles (e.g. Binance, Alpaca).
+- **NestJS-ready** — `ConnectorModule` and `ConnectorService` for dependency injection and lifecycle.
+- **Type-safe** — built on `@barfinex/types` so symbols, intervals, and orders match the rest of the stack.
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```sh
 npm install @barfinex/connectors
@@ -35,94 +29,33 @@ yarn add @barfinex/connectors
 
 ---
 
-## 📘 Example Usage
+## What's included
 
-### 1. Importing the Connector Module
-
-```ts
-import { Module } from '@nestjs/common';
-import { ConnectorModule } from '@barfinex/connectors';
-
-@Module({
-  imports: [ConnectorModule],
-})
-export class AppModule {}
-```
-
-This registers connector providers globally inside your NestJS service.
+| Export | Purpose |
+|--------|--------|
+| `ConnectorModule` | NestJS module that registers connector providers. |
+| `ConnectorService` | Main service: subscriptions, market data, order operations. |
+| `createRequestBinance` | Binance historical data helper. |
+| `requestAlpaca` | Alpaca historical data helper. |
 
 ---
 
-### 2. Using the Connector Service
+## Documentation
 
-```ts
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { ConnectorService } from '@barfinex/connectors';
-
-@Injectable()
-export class MarketWatcher implements OnModuleInit {
-  constructor(private readonly connectorService: ConnectorService) {}
-
-  async onModuleInit() {
-    // Example: subscribe to live candles for BTCUSDT
-    await this.connectorService.subscribe('binance', 'BTCUSDT', 'min1', (candle) => {
-      console.log('New candle:', candle);
-    });
-  }
-}
-```
-
-The `ConnectorService` handles **stream subscriptions, order events, and trade execution** depending on the connector type.
+- **Barfinex overview** — [First Steps](https://barfinex.com/docs/first-steps), [Architecture](https://barfinex.com/docs/architecture), [Glossary](https://barfinex.com/docs/glossary).
+- **Provider (uses connectors)** — [Installation provider](https://barfinex.com/docs/installation-provider), [Docker Compose for Provider](https://barfinex.com/docs/installation-provider-docker-compose), [Understanding Provider Logs](https://barfinex.com/docs/installation-provider-logs).
+- **Detector (consumes market data)** — [Installation detector](https://barfinex.com/docs/installation-detector).
+- **Studio** — [Terminal Configuration](https://barfinex.com/docs/configuration-studio), [Registering Provider in Studio](https://barfinex.com/docs/configuration-studio-provider).
+- **APIs** — [Provider API reference](https://barfinex.com/docs/provider-api), [Building with the API](https://barfinex.com/docs/frontend-api), [Typical problems and solutions](https://barfinex.com/docs/troubleshooting).
 
 ---
 
-### 3. Accessing Historical Candles
+## Contributing
 
-```ts
-import { getHistory } from '@barfinex/connectors/history';
-
-async function main() {
-  const candles = await getHistory({
-    exchange: 'binance',
-    symbol: 'BTCUSDT',
-    interval: '1h',
-    limit: 100,
-  });
-
-  console.log('Fetched candles:', candles.length);
-}
-```
-
-The `history` utility allows you to fetch **cached or on-demand historical data** for backtesting and analysis.
+New connectors (e.g. Bybit, OKX) and improvements are welcome. Open an [issue](https://github.com/barfinex/lib-connectors/issues) or PR. Community: [Telegram](https://t.me/barfinex) · [GitHub](https://github.com/barfinex).
 
 ---
 
-## 📚 What's Included
+## License
 
-- **`ConnectorModule`** — NestJS module for DI.  
-- **`ConnectorService`** — main abstraction for connector logic (market data, orders, subscriptions).  
-- **`history.ts`** — utilities for loading and transforming historical candles.  
-- **`index.ts`** — public exports for integration.  
-
----
-
-## 🤝 Contributing
-
-We welcome contributions to help grow the **open Barfinex standard**:
-
-- 🛠 Open an issue or submit a PR  
-- 💡 Add new connector support (e.g., Bybit, OKX, Coinbase)  
-- 💬 Share feedback or use cases  
-
-Join our Telegram community: [t.me/barfinex](https://t.me/barfinex)
-
----
-
-## 📜 License
-
-This repository is licensed under the [Apache License 2.0](LICENSE) with additional restrictions.
-
-### Key Terms:
-1. **Attribution**: Credit to Barfin Network Limited, with a link to [https://barfinex.com/](https://barfinex.com/).  
-2. **Non-Commercial Use**: Commercial use is prohibited without explicit permission.  
-3. **Display Requirements**: Must show "Barfin Network Limited", the logo, and a link to [https://barfinex.com/](https://barfinex.com/).  
+Licensed under the [Apache License 2.0](LICENSE) with additional terms. Attribution to **Barfin Network Limited** and a link to [https://barfinex.com](https://barfinex.com) are required. Commercial use requires explicit permission. See [LICENSE](LICENSE) and the [Barfinex site](https://barfinex.com) for details.
